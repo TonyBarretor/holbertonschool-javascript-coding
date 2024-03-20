@@ -1,0 +1,21 @@
+{
+    "name": "my-cool-package",
+    "devDependencies": {
+      "semistandard": "^17.0.0"
+    },
+    "scripts": {
+      "test": "semistandard",
+      "fix": "semistandard --fix"
+    },
+    "semistandard": {
+      "ignore": [
+        "**/out/",
+        "/lib/select2/",
+        "/lib/ckeditor/",
+        "tmp.js"
+      ]
+    },
+    "dependencies": {
+      "request": "^2.88.2"
+    }
+  }
