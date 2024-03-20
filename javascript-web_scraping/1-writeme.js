@@ -1,21 +1,13 @@
 #!/usr/bin/node
 
 const fs = require('fs');
+const argv = process.argv;
 
-// Check if the correct number of arguments are provided
-if (process.argv.length !== 4) {
-  console.error('Usage: ./1-writeme.js <file path> <string to write>');
-  process.exit(1);
-}
+const filePath = argv[2];
+const content = argv[3];
 
-const filePath = process.argv[2];
-const content = process.argv[3];
-
-// Write the string to the file
-fs.writeFile(filePath, content, 'utf-8', (err) => {
+fs.writeFile(filePath, content, (err) => {
   if (err) {
-    console.error(err);
-    process.exit(1);
+    console.log(err);
   }
-  console.log('The file has been saved!');
 });
