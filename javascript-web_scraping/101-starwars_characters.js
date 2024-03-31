@@ -25,6 +25,8 @@ request(apiUrl, (error, response, body) => {
   const filmData = JSON.parse(body);
   const charactersUrls = filmData.characters;
 
+  console.log("Character URLs:", charactersUrls);
+
   // Function to fetch character name from URL
   const fetchCharacterName = (url) => {
     return new Promise((resolve, reject) => {
@@ -32,6 +34,7 @@ request(apiUrl, (error, response, body) => {
         if (error) {
           reject(error);
         } else {
+          console.log("Character data for", url, ":", body); // Log character data
           const characterData = JSON.parse(body);
           resolve(characterData.name);
         }
