@@ -25,8 +25,6 @@ request(apiUrl, (error, response, body) => {
   const filmData = JSON.parse(body);
   const charactersUrls = filmData.characters;
 
-  console.log("Character URLs:", charactersUrls);
-
   // Function to fetch character name from URL
   const fetchCharacterName = (url) => {
     return new Promise((resolve, reject) => {
@@ -34,7 +32,6 @@ request(apiUrl, (error, response, body) => {
         if (error) {
           reject(error);
         } else {
-          console.log("Character data for", url, ":", body); // Log character data
           const characterData = JSON.parse(body);
           resolve(characterData.name);
         }
@@ -42,21 +39,16 @@ request(apiUrl, (error, response, body) => {
     });
   };
 
-  // Fetch character names and print them in the order provided by the API
-  let charactersPrinted = 0;
-  charactersUrls.forEach((url) => {
-    fetchCharacterName(url)
-      .then((name) => {
+  // Fetch character names and print them in the correct order
+  charactersUrls.reduce((promiseChain, url) => {
+    return promiseChain.then(() => {
+      return fetchCharacterName(url).then((name) => {
         console.log(name);
-        charactersPrinted++;
-        if (charactersPrinted === charactersUrls.length) {
-          // All characters have been printed
-          process.exit(0);
-        }
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        process.exit(1);
       });
-  });
+    });
+  }, Promise.resolve())
+    .catch((error) => {
+      console.error('Error:', error);
+      process.exit(1);
+    });
 });
