@@ -9,7 +9,7 @@ if (!movieId || isNaN(parseInt(movieId))) {
   process.exit(1);
 }
 
-const apiUrl = `https://swapi.dev/api/films/${movieId}/`;
+const apiUrl = `https://swapi-api.hbtn.io/api/films/${movieId}/`;
 
 request(apiUrl, (error, response, body) => {
   if (error) {
